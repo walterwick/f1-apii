@@ -23,12 +23,19 @@ app.get('/static/*', async (req, res) => {
         // Hedef URL'ye istek gönder
         const response = await fetch(targetUrl);
         
-        // Gelen veriyi JSON formatında döndür
-        if (response.ok) {
+        // Gelen içerik türünü al
+        const contentType = response.headers.get('content-type');
+
+        // İçeriğe göre işlem yap
+        if (contentType && contentType.includes('application/json')) {
+            // JSON ise ayrıştır ve döndür
             const data = await response.json();
             res.json(data);
         } else {
-            res.status(response.status).json({ error: 'Hedef API hatası', details: await response.text() });
+            // JSON değilse ham veriyi döndür
+            const buffer = await response.buffer();
+            res.set('Content-Type', contentType); // Doğru içerik türünü ayarla
+            res.send(buffer); // Ham veriyi döndür
         }
     } catch (error) {
         console.error('Hata oluştu:', error);
