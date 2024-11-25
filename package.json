@@ -1,17 +1,14 @@
 {
-  "name": "f1",
+  "name": "f1-proxy",
   "version": "1.0.0",
   "main": "api.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node api.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "node-fetch": "^3.3.2",
+    "cors": "^2.8.5"
   }
 }
